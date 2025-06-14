@@ -1,8 +1,8 @@
-$BackupLog = "C:\https_config\file_Backup.log"
+$BackupLog = "C:\https_config\exposeUrl.log"
 $date = Get-Date -Format "dd-MM-yyyy"
 
 function Write-Log {
-    log ([string]$message)
+    param ([string]$message)
     $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
     "$timestamp - $message" | Out-File $BackupLog -Append
 }
