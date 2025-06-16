@@ -1,3 +1,4 @@
+New-Item -Path "C:\https_config" -ItemType Directory -Force
 $BackupLog = "C:\https_config\exposeUrl.log"
 $date = Get-Date -Format "dd-MM-yyyy"
 

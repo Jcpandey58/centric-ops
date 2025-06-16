@@ -1,4 +1,4 @@
-New-Item -Path "C:\https_config" -ItemType Directory -Force
+# New-Item -Path "C:\https_config" -ItemType Directory -Force
 $BackupLog = "C:\https_config\exposeUrl.log"
 
 function WriteLog {

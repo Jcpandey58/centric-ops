@@ -1,0 +1,14 @@
+HttpsAutomation\
+├── RunAll.ps1
+├── Logs\
+│	├── exposeUrl.log
+│	├── 1-Backup_Configfiles.log
+│	├── 2-Pi-configurationChanges.log
+│	...
+├── Steps\
+│	├── 1-Backup_Configfiles.ps1
+│	├── 2-Pi-configurationChanges.ps1
+│	├── 3-Standalone-pi-xml-changes.ps1
+│	├── 4-pfxFileReplacement.ps1
+│	├── 5-BatFileChanges.ps1
+│	└── 6-cmd.ps1

@@ -1,7 +1,5 @@
 $BackupLog = "C:\https_config\exposeUrl.log"
 
-# $javaPath = "%JAVA_HOME%\bin"
-
 function WriteLog {
     param ([string]$message)
     $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
@@ -25,22 +23,3 @@ if (-not $matchingLines) {
 } else {
     WriteLog "Line already exists. No action taken."
 }
-
-
-
-<# # Add JAVA_OPTS if not present
-if (-not (Select-String -Path $batFile -Pattern 'rejectClientInitiatedRenegotiation')) {
-    Add-Content $batFile "`r`n$lineToAdd"
-	WriteLog "Added JAVA_OPTS line"
-} else {
-	WriteLog "JAVA_OPTS already present"
-} #>
-
-# Add Java path to environment if not already there
-<# $envPath = [Environment]::GetEnvironmentVariable("Path", "Machine")
-if ($envPath -notlike "*$javaPath*") {
-    [Environment]::SetEnvironmentVariable("Path", "$envPath;$javaPath", "Machine")
-    WriteLog "Added Java path to system"
-} else {
-	WriteLog "Java path already in system path"
-} #>
