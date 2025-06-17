@@ -1,5 +1,12 @@
-New-Item -Path "C:\https_config" -ItemType Directory -Force
-$BackupLog = "C:\https_config\exposeUrl.log"
+# New-Item -Path "C:\https_config" -ItemType Directory -Force
+$RootFolder = "C:\HttpsUrlExpose"
+$logsPath = Join-Path $RootFolder "Logs"
+$BackupLog = Join-Path $logsPath "1-Backup_Configfiles.log"
+
+if (-not (Test-Path $BackupLog)) {
+    New-Item -ItemType File -Path $BackupLog -Force | Out-Null
+}
+
 $date = Get-Date -Format "dd-MM-yyyy"
 
 function Write-Log {
@@ -8,8 +15,7 @@ function Write-Log {
     "$timestamp - $message" | Out-File $BackupLog -Append
 }
 
-
-$backupFolder = "C:\https_config\Backup_$date"
+$backupFolder = Join-Path $RootFolder "Utils\Backup_$date"
 New-Item -ItemType Directory -Path $backupFolder -Force
 
 Copy-Item "C:\Program Files\Centric Software\C8\Wildfly\standalone\configuration\pi-configuration.properties" `

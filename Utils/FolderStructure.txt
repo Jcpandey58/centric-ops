@@ -1,4 +1,4 @@
-HttpsAutomation\
+HttpsUrlExpose\
 ├── RunAll.ps1
 ├── Logs\
 │	├── exposeUrl.log

@@ -1,17 +1,20 @@
 # New-Item -Path "C:\https_config" -ItemType Directory -Force
-$BackupLog = "C:\https_config\exposeUrl.log"
+
+$RootFolder = "C:\HttpsUrlExpose"
+$logsPath = Join-Path $RootFolder "Logs"
+$StandalonePixmlLog = Join-Path $logsPath "3-Standalone-pi-xml-changes.log"
 
 function WriteLog {
     param ([string]$message)
     $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
-    "$timestamp - $message" | Out-File $BackupLog -Append
+    "$timestamp - $message" | Out-File $StandalonePixmlLog -Append
 }
 
-#$xmlPath = "C:\Program Files\Centric Software\C8\Wildfly\standalone\configuration\standalone-pi-mssql.xml"
-$xmlPath = "C:\Users\jayavel.natraj\Documents\standalone-pi.xml"
+$StandalonePixmlPath = "C:\Program Files\Centric Software\C8\Wildfly\standalone\configuration\standalone-pi-mssql.xml"
+# $StandalonePixmlPath = "C:\Users\jayavel.natraj\Documents\standalone-pi.xml"
 $hostname = hostname
 
-$standalonePiContent = Get-Content $xmlPath
+$standalonePiContent = Get-Content $StandalonePixmlPath
 
 $updatedstandalonePiContent = @()
 
@@ -99,5 +102,5 @@ foreach ($line in $standalonePiContent) {
     }
 }
 
-$updatedstandalonePiContent | Set-Content $xmlPath
+$updatedstandalonePiContent | Set-Content $StandalonePixmlPath
 WriteLog "Updated standalone-pi.xml"
