@@ -4,6 +4,10 @@ $RootFolder = "C:\HttpsUrlExpose"
 $logsPath = Join-Path $RootFolder "Logs"
 $StandalonePixmlLog = Join-Path $logsPath "3-Standalone-pi-xml-changes.log"
 
+if (-not (Test-Path $StandalonePixmlLog)) {
+    New-Item -ItemType File -Path $StandalonePixmlLog -Force | Out-Null
+}
+
 function WriteLog {
     param ([string]$message)
     $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
