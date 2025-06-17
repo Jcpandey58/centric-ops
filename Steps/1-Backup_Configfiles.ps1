@@ -15,14 +15,14 @@ function Write-Log {
     "$timestamp - $message" | Out-File $BackupLog -Append
 }
 
-$backupFolder = Join-Path $RootFolder "Utils\Backup_$date"
-New-Item -ItemType Directory -Path $backupFolder -Force
+$backupFolder = Join-Path $RootFolder "Utils\Backup_$date" 
+New-Item -ItemType Directory -Path $backupFolder -Force | Out-Null
 
 Copy-Item "C:\Program Files\Centric Software\C8\Wildfly\standalone\configuration\pi-configuration.properties" `
           "$backupFolder\pi-configuration.properties" -Force
 
-Copy-Item "C:\Program Files\Centric Software\C8\Wildfly\standalone\configuration\standalone-pi-mssql.xml" `
-          "$backupFolder\standalone-pi-mssql.xml" -Force
+Copy-Item "C:\Program Files\Centric Software\C8\Wildfly\standalone\configuration\standalone-pi.xml" `
+          "$backupFolder\standalone-pi.xml" -Force
 
 Copy-Item "C:\Program Files\Centric Software\C8\Wildfly\bin\standalone.conf.bat" `
           "$backupFolder\standalone.conf.bat" -Force

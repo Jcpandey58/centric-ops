@@ -18,7 +18,7 @@ function Log {
     "$timestamp - $msg" | Out-File -FilePath $exposeUrlLog -Append
 }
 
-=== List of step scripts ===
+# === List of step scripts ===
 $steps = @(
     "1-Backup_Configfiles.ps1",
 	"2-Pi-configurationChanges.ps1",

@@ -14,7 +14,7 @@ function WriteLog {
     "$timestamp - $message" | Out-File $StandalonePixmlLog -Append
 }
 
-$StandalonePixmlPath = "C:\Program Files\Centric Software\C8\Wildfly\standalone\configuration\standalone-pi-mssql.xml"
+$StandalonePixmlPath = "C:\Program Files\Centric Software\C8\Wildfly\standalone\configuration\standalone-pi.xml"
 # $StandalonePixmlPath = "C:\Users\jayavel.natraj\Documents\standalone-pi.xml"
 $hostname = hostname
 
@@ -82,8 +82,9 @@ foreach ($line in $standalonePiContent) {
 		WriteLog "Updating socket-binding name"
         $updatedstandalonePiContent += $line -replace "8443", "443"
 		WriteLog 'socket-binding name updated'
+        WriteLog 'Updated HTTP and HTTPS ports'
     }
-	WriteLog 'Updated HTTP and HTTPS ports'
+	
 
     <# # Uncomment HSTS filter-ref
     elseif ($line -match '<!--\s*<filter-ref name="Strict-Transport-Security"\s*/>\s*-->') {
