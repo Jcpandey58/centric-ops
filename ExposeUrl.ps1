@@ -36,4 +36,4 @@ foreach ($script in $steps) {
     Log "$script finished"
 }
 
-Write-Host "All steps completed`nURL exposed susccessfully"
+Write-Host "All steps completed`nURL exposed"
