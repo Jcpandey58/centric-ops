@@ -18,14 +18,15 @@ function Log {
     "$timestamp - $msg" | Out-File -FilePath $exposeUrlLog -Append
 }
 
-# === List of step scripts ===
+#=== List of step scripts ===
 $steps = @(
     "1-Backup_Configfiles.ps1",
 	"2-Pi-configurationChanges.ps1",
     "3-Standalone-pi-xml-changes.ps1",
 	"4-BatFileChanges.ps1",
     "5-pfxFileReplacement.ps1",
-    "6-cmd.ps1"
+    "6-cmd.ps1",
+    "7-Restart Wildfly"
 )
 
 # === Run each step ===
@@ -35,6 +36,4 @@ foreach ($script in $steps) {
     Log "$script finished"
 }
 
-Log "All steps completed"
-Log "Restarting Wildfly"
-Restart-Service -Name "Centric Wildfly Service"
+Write-Host "All steps completed`nURL exposed susccessfully"
