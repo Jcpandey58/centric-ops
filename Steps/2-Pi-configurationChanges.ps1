@@ -24,6 +24,7 @@ if ($piConfigurationcontent -match "^$key\s*=") {
 } 
 # else {
 #     $piConfigurationcontent += $keyValue
+        # Write-log "[Error] Message provider Key not found"
 # }
 
 $piConfigurationcontent | Set-Content $piFile

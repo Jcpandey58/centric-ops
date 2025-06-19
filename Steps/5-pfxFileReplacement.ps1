@@ -12,11 +12,10 @@ function Write-Log {
     "$timestamp - $message" | Out-File $pfxfilereplacementlog -Append
 }
 
-$pkcsPath = "C:\Program Files\Centric Software\C8\Wildfly\standalone\configuration\pkcs_stores"
- Copy-Item Join-Path $RootFolder"\Utils\C8.pfx" -Destination $pkcsPath -Force
+$pkcsPath = "C:\Program Files\Centric Software\C8\Wildfly\standalone\configuration\pkcs_stores\"
+$pfxUtilsPath = (Join-Path $RootFolder "\Utils\C8.pfx")
+ Copy-Item -Path $pfxUtilsPath -Destination $pkcsPath -Force
 
-# Copy-Item "C:\My space\https_UrlExpose\Utils\C8.pfx" `
-#           "C:\My space\" -Force
 		  
 Write-Log "pfx file Updated at $pkcsPath "
 		   

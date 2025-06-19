@@ -13,7 +13,7 @@ function WriteLog {
 }
 
 $processesToKill = @("java", "node")
-
+Stop-Service -Name "Centric Wildfly Service"
 foreach ($processName in $processesToKill) {
     WriteLog "`n--- Processing $processName ---"
     try {

@@ -32,3 +32,4 @@ Copy-Item -Path $StandaloneConfBatFile -Destination "$backupFolder\standalone.co
 		  Write-Log "standalone.conf.bat Copied to $backupFolder`n"
 
 Write-Host "Backup completed in $backupFolder"
+

@@ -1,5 +1,5 @@
 # New-Item -Path "C:\https_config" -ItemType Directory -Force
-
+Write-Host "Updating standalone-pi.xml"
 $RootFolder = "C:\HttpsUrlExpose"
 $logsPath = Join-Path $RootFolder "Logs"
 $StandalonePixmlLog = Join-Path $logsPath "3-Standalone-pi-xml-changes.log"
@@ -108,4 +108,5 @@ foreach ($line in $standalonePiContent) {
 }
 
 $updatedstandalonePiContent | Set-Content $StandalonePixmlPath
-Write-Host "Completed Updating standalone-pi.xml"
+Write-Host "Completed"
+WriteLog "Completed Updating standalone-pi.xml"
