@@ -108,4 +108,4 @@ foreach ($line in $standalonePiContent) {
 }
 
 $updatedstandalonePiContent | Set-Content $StandalonePixmlPath
-WriteLog "Updated standalone-pi.xml"
+Write-Host "Completed Updating standalone-pi.xml"

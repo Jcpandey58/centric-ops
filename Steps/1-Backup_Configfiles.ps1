@@ -15,17 +15,20 @@ function Write-Log {
     "$timestamp - $message" | Out-File $BackupLog -Append
 }
 
-$backupFolder = Join-Path $RootFolder "Utils\Backup_$date" 
+$backupFolder = Join-Path $RootFolder "File Backup\Backup_$date" 
 New-Item -ItemType Directory -Path $backupFolder -Force | Out-Null
 
-Copy-Item "C:\Program Files\Centric Software\C8\Wildfly\standalone\configuration\pi-configuration.properties" `
-          "$backupFolder\pi-configuration.properties" -Force
+$piConfigurationPropertiesFile = "C:\Program Files\Centric Software\C8\Wildfly\standalone\configuration\pi-configuration.properties"
+$StandalonePixmlFile="C:\Program Files\Centric Software\C8\Wildfly\standalone\configuration\standalone-pi.xml" 
+$StandaloneConfBatFile="C:\Program Files\Centric Software\C8\Wildfly\bin\standalone.conf.bat" 
 
-Copy-Item "C:\Program Files\Centric Software\C8\Wildfly\standalone\configuration\standalone-pi.xml" `
-          "$backupFolder\standalone-pi.xml" -Force
+Copy-Item -Path $piConfigurationPropertiesFile -Destination "$backupFolder\pi-configuration.properties" -Force
+          Write-Log "pi-configuration.properties Copied to $backupFolder"
 
-Copy-Item "C:\Program Files\Centric Software\C8\Wildfly\bin\standalone.conf.bat" `
-          "$backupFolder\standalone.conf.bat" -Force
-		  
+Copy-Item -Path $StandalonePixmlFile -Destination "$backupFolder\standalone-pi.xml" -Force
+          Write-Log "standalone-pi.xml Copied to $backupFolder"
 
-Write-Log "Backup completed in $backupFolder"
+Copy-Item -Path $StandaloneConfBatFile -Destination "$backupFolder\standalone.conf.bat" -Force
+		  Write-Log "standalone.conf.bat Copied to $backupFolder`n"
+
+Write-Host "Backup completed in $backupFolder"
