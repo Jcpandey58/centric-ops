@@ -1,5 +1,6 @@
 HttpsUrlExpose\
-├── RunAll.ps1
+├── ExposeUrl.ps1
+├── Revertto8080.ps1
 ├── Logs\
 │	├── exposeUrl.log
 │	├── 1-Backup_Configfiles.log
