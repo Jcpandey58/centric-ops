@@ -2,7 +2,7 @@ Write-Host "Updating Standalone.conf.bat"
 
 $RootFolder = "C:\HttpsUrlExpose"
 $logsPath = Join-Path $RootFolder "Logs"
-$StandalonePixmlLog = Join-Path $logsPath "4-BatFileChanges.log"
+$StandalonePixmlLog = Join-Path $logsPath "ExposeUrl.log"
 
 if (-not (Test-Path $StandalonePixmlLog)) {
     New-Item -ItemType File -Path $StandalonePixmlLog -Force | Out-Null

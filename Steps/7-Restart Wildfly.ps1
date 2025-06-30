@@ -1,6 +1,6 @@
 $RootFolder = "C:\HttpsUrlExpose"
 $logsPath = Join-Path $RootFolder "Logs"
-$RestartwildflyLog = Join-Path $logsPath "Restart Wildfly.log"
+$RestartwildflyLog = Join-Path $logsPath "ExposeUrl.log"
 
 if (-not (Test-Path $RestartwildflyLog)) {
     New-Item -ItemType File -Path $RestartwildflyLog -Force | Out-Null

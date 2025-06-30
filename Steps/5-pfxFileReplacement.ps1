@@ -1,6 +1,6 @@
 $RootFolder = "C:\HttpsUrlExpose"
 $logsPath = Join-Path $RootFolder "Logs"
-$pfxfilereplacementlog = Join-Path $logsPath "5-pfxFileReplacement.log"
+$pfxfilereplacementlog =Join-Path $logsPath "ExposeUrl.log"
 
 if (-not (Test-Path $pfxfilereplacementlog)) {
     New-Item -ItemType File -Path $pfxfilereplacementlog -Force | Out-Null
@@ -17,6 +17,6 @@ $pfxUtilsPath = (Join-Path $RootFolder "\Utils\C8.pfx")
  Copy-Item -Path $pfxUtilsPath -Destination $pkcsPath -Force
 
 		  
-Write-Log "pfx file Updated at $pkcsPath "
+Write-Log "[SUCCESS] pfx file Updated at $pkcsPath "
 		   
 		  

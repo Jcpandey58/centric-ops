@@ -2,7 +2,7 @@
 Write-Host "Updating standalone-pi.xml"
 $RootFolder = "C:\HttpsUrlExpose"
 $logsPath = Join-Path $RootFolder "Logs"
-$StandalonePixmlLog = Join-Path $logsPath "3-Standalone-pi-xml-changes.log"
+$StandalonePixmlLog = Join-Path $logsPath "ExposeUrl.log"
 
 if (-not (Test-Path $StandalonePixmlLog)) {
     New-Item -ItemType File -Path $StandalonePixmlLog -Force | Out-Null
@@ -25,23 +25,23 @@ $updatedstandalonePiContent = @()
 foreach ($line in $standalonePiContent) {
     
     if ($line -match 'name="com.centricsoftware.AppServer.WebServer"') {
-		WriteLog "com.centricsoftware.AppServer.WebServer Found"
+		WriteLog "[INFO] com.centricsoftware.AppServer.WebServer Found"
         $updatedstandalonePiContent += '        <property name="com.centricsoftware.AppServer.WebServer" value="' + "$hostname.centricsoftware.com" + '" />'
-		WriteLog '"com.centricsoftware.AppServer.WebServer" value updated'
+		WriteLog '[INFO] "com.centricsoftware.AppServer.WebServer" value updated'
     }
 
     # Update HomeURL
     elseif ($line -match 'name="com.centricsoftware.AppServer.HomeURL"') {
-		WriteLog "com.centricsoftware.AppServer.HomeURL Found"
+		WriteLog "[INFO] com.centricsoftware.AppServer.HomeURL Found"
         $updatedstandalonePiContent += '        <property name="com.centricsoftware.AppServer.HomeURL" value="https://' + "$hostname.centricsoftware.com/WebAccess/home.html" + '" />'
-		WriteLog '"com.centricsoftware.AppServer.HomeURL" value updated'
+		WriteLog '[INFO] "com.centricsoftware.AppServer.HomeURL" value updated'
 	}
 
     # Update HomeExternalURL
     elseif ($line -match 'name="com.centricsoftware.AppServer.HomeExternalURL"') {
-		WriteLog "com.centricsoftware.AppServer.HomeExternalURL"
+		WriteLog "[INFO] com.centricsoftware.AppServer.HomeExternalURL Found"
         $updatedstandalonePiContent += '        <property name="com.centricsoftware.AppServer.HomeExternalURL" value="https://' + "$hostname.centricsoftware.com/WebAccess/home.html" + '" />'
-		WriteLog '"com.centricsoftware.AppServer.HomeExternalURL" value updated'
+		WriteLog '[INFO] "com.centricsoftware.AppServer.HomeExternalURL" value updated'
 	}
 
     <# # Update ClusterNodeAddress
@@ -51,38 +51,38 @@ foreach ($line in $standalonePiContent) {
 
     # Update PKCS Filename
     elseif ($line -match 'name="com.centricsoftware.AppServer.PKCS.KeyStore.Filename"') {
-		WriteLog "com.centricsoftware.AppServer.PKCS.KeyStore.Filename"
+		WriteLog "[INFO] com.centricsoftware.AppServer.PKCS.KeyStore.Filename found"
         $updatedstandalonePiContent += '        <property name="com.centricsoftware.AppServer.PKCS.KeyStore.Filename" value="${env.C8_AppServer_PKCS_KeyStore_Filename:C8.pfx}" />'
-		WriteLog '"com.centricsoftware.AppServer.PKCS.KeyStore.Filename" value updated'
+		WriteLog '[INFO] "com.centricsoftware.AppServer.PKCS.KeyStore.Filename" value updated'
    }
 
     # Update PKCS KeyStore Entry
     elseif ($line -match 'name="com.centricsoftware.AppServer.PKCS.PrivateKey.KeyStoreEntry"') {
-		WriteLog "com.centricsoftware.AppServer.PKCS.PrivateKey.KeyStoreEntry Found"
+		WriteLog "[INFO] com.centricsoftware.AppServer.PKCS.PrivateKey.KeyStoreEntry Found"
         $updatedstandalonePiContent += '        <property name="com.centricsoftware.AppServer.PKCS.PrivateKey.KeyStoreEntry" value="${env.C8_AppServer_PKCS_PrivateKey_KeyStoreEntry:1}" />'
-		WriteLog '"com.centricsoftware.AppServer.PKCS.PrivateKey.KeyStoreEntry" value updated'
+		WriteLog '[INFO] "com.centricsoftware.AppServer.PKCS.PrivateKey.KeyStoreEntry" value updated'
 	}
 
     # Replace server-ssl-context self-closed line
     elseif ($line -match '<server-ssl-context .*?/>') {
-		WriteLog "server-ssl-context Found"
+		WriteLog "[INFO] server-ssl-context Found"
         $updatedstandalonePiContent += '            <server-ssl-context name="LocalhostSslContext" cipher-suite-names="TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256" key-manager="LocalhostKeyManager" cipher-suite-filter="TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_DHE_RSA_WITH_AES_256_GCM_SHA384,TLS_DHE_RSA_WITH_AES_128_GCM_SHA256" />'
-		WriteLog '"server-ssl-context" value updated'
+		WriteLog '[INFO] "server-ssl-context" value updated'
 	}
 
     # Change HTTP port 8080 to 80
     elseif ($line -match '<socket-binding name="http"') {
-		WriteLog "Updtaing HTTP port"
+		WriteLog "[INFO] Updtaing HTTP port"
         $updatedstandalonePiContent += $line -replace "8080", "80"
-		WriteLog 'HTTP Port updated to 80'
+		WriteLog '[INFO] HTTP Port updated to 80'
     }
 
     # Change HTTPS port 8443 to 443
     elseif ($line -match '<socket-binding name="https"') {
-		WriteLog "Updating socket-binding name"
+		WriteLog "[INFO] Updating socket-binding name"
         $updatedstandalonePiContent += $line -replace "8443", "443"
-		WriteLog 'socket-binding name updated'
-        WriteLog 'Updated HTTP and HTTPS ports'
+		WriteLog '[INFO] socket-binding name updated'
+        WriteLog '[INFO] Updated HTTP and HTTPS ports'
     }
 	
 
@@ -109,4 +109,4 @@ foreach ($line in $standalonePiContent) {
 
 $updatedstandalonePiContent | Set-Content $StandalonePixmlPath
 Write-Host "Completed"
-WriteLog "Completed Updating standalone-pi.xml"
+WriteLog "[SUCCESS] Completed Updating standalone-pi.xml"

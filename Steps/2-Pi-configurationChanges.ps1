@@ -1,6 +1,6 @@
 $RootFolder = "C:\HttpsUrlExpose"
 $logsPath = Join-Path $RootFolder "Logs"
-$PiConfigurationlog = Join-Path $logsPath "2-Pi-configurationChanges.log"
+$PiConfigurationlog = Join-Path $logsPath "ExposeUrl.log"
 
 if (-not (Test-Path $PiConfigurationlog)) {
     New-Item -ItemType File -Path $PiConfigurationlog -Force | Out-Null
@@ -20,13 +20,13 @@ $piConfigurationcontent = Get-Content $piFile
 
 if ($piConfigurationcontent -match "^$key\s*=") {
     $piConfigurationcontent = $piConfigurationcontent -replace "^$key\s*=.*", $keyValue
-	WriteLog "Message provider Key found"
+	WriteLog "[INFO] Message provider Key found"
 } 
-# else {
+else {
 #     $piConfigurationcontent += $keyValue
-        # Write-log "[Error] Message provider Key not found"
+        Write-log "[Error] Message provider Key not found"
 # }
 
 $piConfigurationcontent | Set-Content $piFile
 
-WriteLog "Updated Messge provider at pi-configuration.properties"
+WriteLog "[SUCCESS] Updated Messge provider at pi-configuration.properties"
