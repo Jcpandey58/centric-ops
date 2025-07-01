@@ -1,14 +1,8 @@
 HttpsUrlExpose\
 ├── ExposeUrl.ps1
-├── Revertto8080.ps1
+├── https.bat
 ├── Logs\
-│	├── exposeUrl.log
-│	├── 1-Backup_Configfiles.log
-│	├── 2-Pi-configurationChanges.log
-│	├── 3-Standalone-pi-xml-changes.log
-│   ├── 4-BatFileChanges.log
-│   ├── 5-pfxFileReplacement.log
-│   ├── 6-Cmd.log
+│	├── ExposeUrl.log
 ├── Steps\
 │	├── 1-Backup_Configfiles.ps1
 │	├── 2-Pi-configurationChanges.ps1
