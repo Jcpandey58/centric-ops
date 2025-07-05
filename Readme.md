@@ -3,10 +3,7 @@ You no longer need to open PowerShell and type commands manually.
 Just double-click the https.bat file — and boom 💥, your URL is exposed to the internet instantly.
 
 📋 Centralized Logging
-Previously, logs were split across multiple files like:
-
-batfilechanges.log, cmd.log, etc...
-
+Previously, logs were split across multiple files like: batfilechanges.log, cmd.log, etc...
 Now, all logs are streamlined into a single file:
 Logs/ExposeUrl.log
 This simplifies error tracking and debugging.

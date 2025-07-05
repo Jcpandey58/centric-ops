@@ -14,8 +14,8 @@ function WriteLog {
     "$timestamp - $message" | Out-File $StandalonePixmlLog -Append
 }
 
-$StandalonePixmlPath = "C:\Program Files\Centric Software\C8\Wildfly\standalone\configuration\standalone-pi.xml"
-# $StandalonePixmlPath = "C:\Users\jayavel.natraj\Documents\standalone-pi.xml"
+$StandalonePixmlPath = "C:\Program Files\Centric Software\C8\Wildfly\standalone\configuration\standalone-pi-mssql.xml"
+
 $hostname = hostname
 
 $standalonePiContent = Get-Content $StandalonePixmlPath

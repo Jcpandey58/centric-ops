@@ -22,7 +22,7 @@ function Log {
 $steps = @(
     "1-Backup_Configfiles.ps1",
 	"2-Pi-configurationChanges.ps1",
-    "3A-Standalone-pi-xml-changes.ps1",
+    "3B-Standalone-pi-mssql-changes.ps1",
 	"4-BatFileChanges.ps1",
     "5-pfxFileReplacement.ps1",
     "6-cmd.ps1",
