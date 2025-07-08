@@ -8,14 +8,14 @@ if (-not (Test-Path $BackupLog)) {
 }
 
 $date = Get-Date -Format "dd-MM-yyyy"
-
+$timestamp = Get-Date -Format "dd-MM-yyyy_HH-mm-ss"
 function Write-Log {
     param ([string]$message)
     $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
     "$timestamp - $message" | Out-File $BackupLog -Append
 }
 
-$backupFolder = Join-Path $RootFolder "File Backup\Backup_$date" 
+$backupFolder = Join-Path $RootFolder "File Backup\Backup_$timestamp" 
 New-Item -ItemType Directory -Path $backupFolder -Force | Out-Null
 
 $piConfigurationPropertiesFile = "C:\Program Files\Centric Software\C8\Wildfly\standalone\configuration\pi-configuration.properties"
