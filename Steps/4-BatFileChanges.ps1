@@ -1,6 +1,6 @@
 Write-Host "Updating Standalone.conf.bat"
 
-$RootFolder = "C:\HttpsUrlExpose"
+$RootFolder = Split-Path -Parent $MyInvocation.MyCommand.Path
 $logsPath = Join-Path $RootFolder "Logs"
 $StandalonePixmlLog = Join-Path $logsPath "ExposeUrl.log"
 

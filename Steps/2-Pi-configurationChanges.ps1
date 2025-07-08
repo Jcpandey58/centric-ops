@@ -1,4 +1,4 @@
-$RootFolder = "C:\HttpsUrlExpose"
+$RootFolder = Split-Path -Parent $MyInvocation.MyCommand.Path
 $logsPath = Join-Path $RootFolder "Logs"
 $PiConfigurationlog = Join-Path $logsPath "ExposeUrl.log"
 
@@ -8,8 +8,27 @@ if (-not (Test-Path $PiConfigurationlog)) {
 
 function WriteLog {
     param ([string]$message)
+
+    $logFile = $PiConfigurationlog
+    $maxSize = 1MB
+
+    if (Test-Path $logFile) {
+        $fileInfo = Get-Item $logFile
+        if ($fileInfo.Length -ge $maxSize) {
+            # Find next available log number
+            $i = 1
+            while (Test-Path "$logFile.$i") {
+                $i++
+            }
+
+            # Rename current log to next available number
+            Rename-Item $logFile "$logFile.$i"
+        }
+    }
+
     $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
-    "$timestamp - $message" | Out-File $PiConfigurationlog -Append
+    "$timestamp - $message" | Out-File $logFile -Append -Encoding UTF8
+
 }
 
 $piFile = "C:\Program Files\Centric Software\C8\Wildfly\standalone\configuration\pi-configuration.properties"
@@ -24,7 +43,7 @@ if ($piConfigurationcontent -match "^$key\s*=") {
 } 
 else {
 #     $piConfigurationcontent += $keyValue
-        Write-log "[Error] Message provider Key not found"
+        WriteLog "[Error] Message provider Key not found"
  }
 
 $piConfigurationcontent | Set-Content $piFile

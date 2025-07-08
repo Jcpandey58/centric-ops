@@ -1,4 +1,4 @@
-$RootFolder = "C:\HttpsUrlExpose"
+$RootFolder = Split-Path -Parent $MyInvocation.MyCommand.Path
 $logsPath = Join-Path $RootFolder "Logs"
 $pfxfilereplacementlog =Join-Path $logsPath "ExposeUrl.log"
 

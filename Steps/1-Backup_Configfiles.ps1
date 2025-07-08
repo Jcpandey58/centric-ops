@@ -1,21 +1,20 @@
-# New-Item -Path "C:\https_config" -ItemType Directory -Force
-$RootFolder = "C:\HttpsUrlExpose"
+$RootFolder = Split-Path -Parent $MyInvocation.MyCommand.Path
 $logsPath = Join-Path $RootFolder "Logs"
 $BackupLog = Join-Path $logsPath "ExposeUrl.log"
 
 if (-not (Test-Path $BackupLog)) {
-    New-Item -ItemType File -Path $BackupLog -Force | Out-Null
+    New-Item -ItemType File -Path $BackupLog | Out-Null
 }
 
-$date = Get-Date -Format "dd-MM-yyyy"
+$timestamp = Get-Date -Format "dd-MM-yyyy_HH-mm-ss"
 
 function Write-Log {
     param ([string]$message)
-    $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+    # $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
     "$timestamp - $message" | Out-File $BackupLog -Append
 }
 
-$backupFolder = Join-Path $RootFolder "File Backup\Backup_$date" 
+$backupFolder = Join-Path $RootFolder "File Backup\Backup_$timestamp" 
 if (-not (Test-Path $backupFolder)) {
     New-Item -ItemType Directory -Path $backupFolder | Out-Null
     Write-Log [INFO] The Directory Backup_$date created 

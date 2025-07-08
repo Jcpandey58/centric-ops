@@ -1,6 +1,6 @@
 # New-Item -Path "C:\https_config" -ItemType Directory -Force
 Write-Host "Updating standalone-pi.xml"
-$RootFolder = "C:\HttpsUrlExpose"
+$RootFolder = Split-Path -Parent $MyInvocation.MyCommand.Path
 $logsPath = Join-Path $RootFolder "Logs"
 $StandalonePixmlLog = Join-Path $logsPath "ExposeUrl.log"
 
