@@ -1,4 +1,5 @@
-. ".\PathSpecifier.ps1"
+. (Join-Path $PSScriptRoot "..\Common\PathSpecifier.ps1")
+. (Join-Path $PSScriptRoot "..\Common\logGenerator.ps1")
 
 # keytool command execution
 $keytoolCommand = "keytool -list -keystore C8.pfx -storetype pkcs12 -storepass CSIWildCard#1"

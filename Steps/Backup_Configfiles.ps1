@@ -1,10 +1,13 @@
-. ".\PathSpecifier.ps1"
+. (Join-Path $PSScriptRoot "..\Common\PathSpecifier.ps1")
+. (Join-Path $PSScriptRoot "..\Common\logGenerator.ps1")
+
 
 if (-not (Test-Path $backupFolder)) {
     New-Item -ItemType Directory -Path $backupFolder | Out-Null
     urllog "Backup folder created : Backup_$(Get-Date -Format "dd-MM-yyyy_HH-mm-ss")"
     urllog "Located at $backupFolder" "DEBUG"
-}
+} 
+
 $content = Get-Content $StandaloneConfBatFile
 $line = $content | Select-String -Pattern '-Djboss.server.default.config=' -SimpleMatch
 if ($line) {

@@ -1,4 +1,5 @@
-. ".\PathSpecifier.ps1"
+. (Join-Path $PSScriptRoot "..\Common\PathSpecifier.ps1")
+. (Join-Path $PSScriptRoot "..\Common\logGenerator.ps1")
 
 $key = "com.centricsoftware.server.MessageProvider.CENTRICMESSAGEPROVIDER.CommonFromAddress"
 $keyValue = "$key = noreply@centricsoftware.com"

@@ -1,4 +1,5 @@
-. ".\PathSpecifier.ps1"
+. (Join-Path $PSScriptRoot "..\Common\PathSpecifier.ps1")
+. (Join-Path $PSScriptRoot "..\Common\logGenerator.ps1")
 
 Write-Host "Updating Standalone.conf.bat"
 urllog "Updating Standalone.conf.bat" "INFO"

@@ -1,5 +1,11 @@
-. ".\PathSpecifier.ps1"
 # $global:urlexposelog = Join-Path -Path (Join-Path -Path (Get-Location) -ChildPath "Logs") -ChildPath "exposeUrl.log"
+$logsPath = Join-Path (Split-Path -Parent $PSScriptRoot) "Logs"
+if (-not (Test-Path $logsPath)) {
+    New-Item -ItemType Directory -Path $logsPath | Out-Null
+}
+$urlexposelog = Join-Path $logsPath "ExposeUrl.log"
+$DbBackupLog = Join-Path $logsPath "Db-Backup.log"
+
 
 function urllog {
     param ([string]$message, [string]$level = "INFO")
@@ -26,8 +32,9 @@ function urllog {
         }
     }
 
-    $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
-    "$timestamp - [$level] - $message" | Out-File $logFile -Append -Encoding UTF8
+    $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss,fff"
+	$paddedLevel = $level.PadRight(5)
+    "[$timestamp] [$paddedLevel] -- $message" | Out-File $logFile -Append 
 }
 function dblog {
     param ([string]$message, [string]$level = "INFO")
@@ -59,6 +66,7 @@ function dblog {
         }
     }
 
-    $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
-    "$timestamp - [$level] - $message" | Out-File $DbBackupLog -Append
+    $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss,fff"
+	$paddedLevel = $level.PadRight(5)
+    "[$timestamp] [$paddedLevel] -- $message" | Out-File $logFile -Append 
 }

@@ -1,4 +1,5 @@
-. ".\PathSpecifier.ps1"
+. (Join-Path $PSScriptRoot "..\Common\PathSpecifier.ps1")
+. (Join-Path $PSScriptRoot "..\Common\logGenerator.ps1")
 
 $Wildflyservice = Get-Service -Name "WFAS20SVC" -ErrorAction SilentlyContinue
 

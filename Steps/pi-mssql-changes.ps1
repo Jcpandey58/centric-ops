@@ -1,4 +1,5 @@
-. ".\PathSpecifier.ps1"
+. (Join-Path $PSScriptRoot "..\Common\PathSpecifier.ps1")
+. (Join-Path $PSScriptRoot "..\Common\logGenerator.ps1")
 
 Write-Host "Updating standalone-pi-mssql.xml"
 $hostname = hostname

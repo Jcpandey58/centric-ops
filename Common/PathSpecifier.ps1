@@ -1,15 +1,9 @@
 $c8wildflyfolder = "C:\Program Files\Centric Software\C8\Wildfly"
-$server = "localhost" #Changing this will reflect in DB backup only
+$server = "win16-sql19" #Changing this will reflect in DB backup only
 $RootFolder = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
-$logsPath = Join-Path $RootFolder "Logs"
-if (-not (Test-Path $logsPath)) {
-    New-Item -ItemType Directory -Path $logsPath | Out-Null
-}
-$DbBackupLog = Join-Path $logsPath "Db-Backup.log"
-$dbbackupDir = "C:\Db Backup"
-$dbbackupfile = "$dbbackupDir\C8_$(Get-Date -Format "yyyy-MMM-dd_HH-mm-ss").bak"
-$urlexposelog = Join-Path $logsPath "ExposeUrl.log"
-$backupFolder = Join-Path $RootFolder "File Backup\Backup_$(Get-Date -Format "dd-MM-yyyy_HH-mm-ss")" 
+$StandarddbbackupDir = Join-Path $RootFolder "Db Backup" 
+$dbbackupDir = Join-Path $RootFolder "Db Backup"
+$backupFolder = Join-Path $RootFolder "File Backup\Backup_$(Get-Date -Format "dd-MM-yyyy_HH-mm-ss")"
 $keytoolFolder = Join-Path $c8wildflyfolder "standalone\configuration\pkcs_stores"
 $pkcsPath = Join-Path $c8wildflyfolder "standalone\configuration\pkcs_stores\"
 $piConfigurationPropertiesFile = Join-Path $c8wildflyfolder "standalone\configuration\pi-configuration.properties"
