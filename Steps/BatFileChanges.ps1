@@ -7,7 +7,7 @@ urllog "Updating Standalone.conf.bat" "INFO"
 $lineToAdd = 'set "JAVA_OPTS=%JAVA_OPTS% -Djdk.tls.ephemeralDHKeySize=2048 -Djdk.tls.rejectClientInitiatedRenegotiation=true"'
 
 
-$lines = Get-Content $baStandaloneConfBatFiletFile
+$lines = Get-Content $StandaloneConfBatFile
 $matchingLines = @()
 urllog "Reading Standalone.conf.bat file""INFO"
 foreach ($line in $lines) {

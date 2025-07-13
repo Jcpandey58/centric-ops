@@ -3,16 +3,16 @@ $logsPath = Join-Path (Split-Path -Parent $PSScriptRoot) "Logs"
 if (-not (Test-Path $logsPath)) {
     New-Item -ItemType Directory -Path $logsPath | Out-Null
 }
-$urlexposelog = Join-Path $logsPath "ExposeUrl.log"
-$DbBackupLog = Join-Path $logsPath "Db-Backup.log"
+$logFile = Join-Path $logsPath "centric-ps.log"
+# $DbBackupLog = Join-Path $logsPath "Db-Backup.log"
 
 
 function urllog {
     param ([string]$message, [string]$level = "INFO")
 
-    $logFile = $urlexposelog
-    $maxSize = 1MB
-    $maxBackups = 11
+    # $logFile = $urlexposelog
+    $maxSize = 100kB
+    $maxBackups = 4
 
     if (Test-Path $logFile) {
         $fileInfo = Get-Item $logFile
@@ -36,7 +36,7 @@ function urllog {
 	$paddedLevel = $level.PadRight(5)
     "[$timestamp] [$paddedLevel] -- $message" | Out-File $logFile -Append 
 }
-function dblog {
+<# function dblog {
     param ([string]$message, [string]$level = "INFO")
 
     $logFile = $DbBackupLog
@@ -52,7 +52,6 @@ function dblog {
                 Remove-Item $oldest
             }
 
-            # Shift backups down
             for ($i = $maxBackups - 1; $i -ge 1; $i--) {
                 $src = "$logFile.$i"
                 $dst = "$logFile." + ($i + 1)
@@ -69,4 +68,4 @@ function dblog {
     $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss,fff"
 	$paddedLevel = $level.PadRight(5)
     "[$timestamp] [$paddedLevel] -- $message" | Out-File $logFile -Append 
-}
+} #>

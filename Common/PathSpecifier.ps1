@@ -1,9 +1,51 @@
-$c8wildflyfolder = "C:\Program Files\Centric Software\C8\Wildfly"
-$server = "win16-sql19" #Changing this will reflect in DB backup only
 $RootFolder = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
+$ConfigFile = Join-Path $RootFolder "Configuration.properties"
+
+$Config = @{}
+if (Test-Path $ConfigFile) {
+    Get-Content $ConfigFile | ForEach-Object {
+        if ($_ -match '^(.*?)=(.*?)$') {
+            $Config[$matches[1].Trim()] = $matches[2].Trim().ToLower()
+        }
+    }
+} else {
+    Write-Host "Config file not found: $ConfigFile"
+    Exit 1
+}
+
+#Capturing from Configuration.Properties file
+if($Config["db.server"] -eq "localhost"){
+	$server = $env:COMPUTERNAME
+}
+else{
+	$server = $Config["db.server"]
+}
+
+$EnableDbBackup = $Config["db.backup"] -eq "true"
+$EnableUrlExpose = $Config["url.expose"] -eq "true"
+
+$EnableRestartPDF = $Config["restart.PDF.service"] -eq "true"
+$EnableRestartImage = $Config["restart.Image.service"] -eq "true"
+# Service control toggles
+$EnableRestartWildFly = $Config["restart.WildFly.service"] -eq "true"
+$EnableStopWildFly = $Config["stop.WildFly.service"] -eq "true"
+$EnableStartWildFly = $Config["start.WildFly.service"] -eq "true"
+$EnableStopPDF = $Config["stop.PDF.service"] -eq "true"
+$EnableStartPDF = $Config["start.PDF.service"] -eq "true"
+$EnableStopImage = $Config["stop.Image.service"] -eq "true"
+$EnableStartImage = $Config["start.Image.service"] -eq "true"
+
+# === BACKUP FILE PATHS ===
 $StandarddbbackupDir = Join-Path $RootFolder "Db Backup" 
 $dbbackupDir = Join-Path $RootFolder "Db Backup"
 $backupFolder = Join-Path $RootFolder "File Backup\Backup_$(Get-Date -Format "dd-MM-yyyy_HH-mm-ss")"
+$pfxUtilsPath = (Join-Path $RootFolder "\Utils\C8.pfx")
+
+# === C8 WILDFLY FILE PATHS ===
+$BasePath = "C:\Program Files\Centric Software\C8"
+$c8wildflyfolder = Get-ChildItem -Path $BasePath -Directory |
+    Where-Object { $_.Name -like "Wildfly*" } |
+    Select-Object -First 1 -ExpandProperty FullName
 $keytoolFolder = Join-Path $c8wildflyfolder "standalone\configuration\pkcs_stores"
 $pkcsPath = Join-Path $c8wildflyfolder "standalone\configuration\pkcs_stores\"
 $piConfigurationPropertiesFile = Join-Path $c8wildflyfolder "standalone\configuration\pi-configuration.properties"
@@ -11,4 +53,13 @@ $StandalonePixmlFile= Join-Path $c8wildflyfolder "standalone\configuration\stand
 $StandalonePimssqlxmlFile=Join-Path $c8wildflyfolder "standalone\configuration\standalone-pi-mssql.xml"
 $binFolder = Join-Path $c8wildflyfolder "bin" 
 $StandaloneConfBatFile=Join-Path $binFolder "standalone.conf.bat" 
-$pfxUtilsPath = (Join-Path $RootFolder "\Utils\C8.pfx")
+
+#Service name definition
+# display name pattern to search for Wildfly
+$displayNamePattern = "Centric WildFly*"
+# Search for service where the display name matches the pattern
+$Wildflyservice = Get-Service | Where-Object { $_.DisplayName -like $displayNamePattern } | Select-Object -First 1
+
+$PDFservice = "Centric PDF Service"
+$Imageservice = "CentricImageService"
+

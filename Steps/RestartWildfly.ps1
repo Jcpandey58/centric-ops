@@ -1,11 +1,25 @@
 . (Join-Path $PSScriptRoot "..\Common\PathSpecifier.ps1")
 . (Join-Path $PSScriptRoot "..\Common\logGenerator.ps1")
 
-$Wildflyservice = Get-Service -Name "WFAS20SVC" -ErrorAction SilentlyContinue
+if ($Wildflyservice) {
+    $ServiceName = $Wildflyservice.Name
+    $ServiceDisplayName = $Wildflyservice.DisplayName
+    urllog "Detected Service Name: $ServiceName" "DEBUG"
+    urllog "Detected Display Name: $ServiceDisplayName" "DEBUG"
+} else {
+    Write-Host "Cannot find WildFly service. Check log for details"
+	urllog  "No WildFly service with display name pattern '$displayNamePattern' was found." "ERROR"
+	urllog "Make sure that the service is installed."
+    Exit 1
+}
+
+# $Wildflyservice = Get-Service -Name "WFAS20SVC" -ErrorAction SilentlyContinue
 
 $processesToKill = @("java", "node")
+Write-Host "Stopping $ServiceDisplayName"
+
 foreach ($processName in $processesToKill) {
-    urllog "`n--- Processing $processName ---"
+    urllog "--- Processing $processName ---"
     try {
         $process = Get-Process -Name $processName -ErrorAction SilentlyContinue
 
@@ -23,17 +37,17 @@ foreach ($processName in $processesToKill) {
     }
 }
 
-if ($Wildflyservice.Status -eq "Stopped") {
-    urllog "Wildfly service is not running" "DEBUG"
+if ($ServiceName.Status -eq "Stopped") {
+    urllog "$ServiceDisplayName is not running" "DEBUG"
 } else {
-    urllog "Stopping Centric Wildfly Service"
-    Stop-Service -Name "WFAS20SVC" -ErrorAction stop
+    urllog "Stopping $ServiceDisplayName"
+    Stop-Service -Name "$ServiceName" -Force -ErrorAction stop
 }
 
-Write-Host "`nStarting Wildfly service"
+Write-Host "Starting $ServiceDisplayName"
 urllog "Starting Wildfly Service"
-Start-Service -Name "Centric Wildfly Service"
+Start-Service -Name "$ServiceName"
 if ($Wildflyservice.Status -eq "Running") {
-    urllog "Wildfly service is running" "DEBUG"
-} 
-Write-Host "`nStarted Wildfly service"
+    urllog "$ServiceDisplayName is running" "DEBUG"
+	Write-Host "$ServiceDisplayName - Status - Running"
+}

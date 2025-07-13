@@ -1,18 +1,19 @@
 . (Join-Path $PSScriptRoot "..\Common\PathSpecifier.ps1")
 . (Join-Path $PSScriptRoot "..\Common\logGenerator.ps1")
 
-dblog "Script execution started."
-dblog "DB backup Script located in: $($MyInvocation.MyCommand.Path)" "DEBUG"
-dblog "Server parameter: $server" "DEBUG"
+
+urllog "Script execution started."
+urllog "DB backup Script located in: $($MyInvocation.MyCommand.Path)" "DEBUG"
+urllog "Server parameter (Fetched from Configuration.properties): $server" "DEBUG"
 
 # Determine if local or remote SQL server
-$isLocalServer = ($server -eq "localhost" -or $server -eq $env:COMPUTERNAME)
+$isLocalServer = ($server -eq $env:COMPUTERNAME)
 
 # Choose backup path
 if ($isLocalServer) {
     $dbbackupDir = $StandarddbbackupDir
     if (!(Test-Path -Path $dbbackupDir)) {
-        dblog "Creating local Db backup folder at: $dbbackupDir"
+        urllog "Creating local Db backup folder at: $dbbackupDir"
         New-Item -ItemType Directory -Path $dbbackupDir | Out-Null
     }
 } else {
@@ -21,8 +22,8 @@ if ($isLocalServer) {
 	if(! (Test-Path -Path $dbbackupDir)){
 		New-Item -ItemType Directory -Path $dbbackupDir | Out-Null
 	}
-    dblog "Remote server detected"
-	dblog "Backup will be saved to folder: $dbbackupDir" "DEBUG"
+    urllog "Remote server detected"
+	urllog "Backup will be saved to folder: $dbbackupDir" "DEBUG"
 }
 
 $database = Read-Host "Enter Database name"
@@ -30,16 +31,16 @@ $dbbackupfile = "$dbbackupDir\${database}_${Server}_$(Get-Date -Format "dd-MM-yy
 
 if ([string]::IsNullOrWhiteSpace($database)) {
     Write-Host "ERROR: Please enter valid database name"
-	dblog "Script exited with exception. Because user entered Null or WhiteSpace"
+	urllog "Script exited with exception. Because user entered Null or WhiteSpace" "ERROR"
     Exit 1
 } 
-dblog "Database parameter entered by user: '$database'"
+urllog "Database parameter entered by user: '$database'"
 
 
 Write-Host "Using $server" and $database Database
 
 
-dblog "Attempting database backup for '$database'" 
+urllog "Attempting database backup for '$database'" 
 
 try {
     #check if DB exists
@@ -48,10 +49,10 @@ try {
 
     if ($dbExists) {
         #Backup the database
-		dblog "Database '$database' exists. Proceeding with backup."
+		urllog "Database '$database' exists. Proceeding with backup."
 		
 		if (!(Test-Path -Path $dbbackupDir)) {
-			dblog "Creating Db backup Folder at $dbbackupDir"
+			urllog "Creating Db backup Folder at $dbbackupDir"
 			New-Item -ItemType Directory -Path $dbbackupDir | Out-Null
 		}
 		
@@ -60,23 +61,32 @@ try {
         Invoke-Sqlcmd -ServerInstance $server -Username "sa" -Password "csisa" -Query $query -ErrorAction Stop #SQL Authentication
         # Invoke-Sqlcmd -ServerInstance $server -Query $query   #Windows Authentication
         Write-Host "Backup completed"
-        dblog "Backup completed successfully"
-		dblog "Backup file: $dbbackupfile" "DEBUG"
+        urllog "Backup completed successfully"
+		urllog "Backup file: $dbbackupfile" "DEBUG"
 		try{
-			$destinationFile = Join-Path $StandarddbbackupDir (Split-Path $dbbackupfile -Leaf)
-			Move-Item -Path "\\${server}\c$\$(Split-Path $dbbackupfile -Leaf)" -Destination $destinationFile
-			dblog "Moved backup file from '$dbbackupfile' to '$destinationFile'" 
+			if(!($isLocalServer)){
+				$destinationFile = Join-Path $StandarddbbackupDir (Split-Path $dbbackupfile -Leaf)
+				Move-Item -Path "\\${server}\c$\$(Split-Path $dbbackupfile -Leaf)" -Destination $destinationFile
+				urllog "Moved backup file from '$dbbackupfile' to '$destinationFile'" 
+			}
+			
 		} catch {
-			dblog "Failed to move backup file: $($_.Exception.Message)" "ERROR"
+			urllog "Failed to move backup file: $($_.Exception.Message)" "ERROR"
 		}
     } else {
         $msg = "Database '$database' does not exist in server '$server'."       
-        Write-Host $msg
-        dblog $msg "ERROR"
+		Write-Host $msg
+        urllog $msg "ERROR"
+		 throw $msg
+		
     }
 }
 catch {
     $errorMsg = $_.Exception.Message
     Write-Host "ERROR: $errorMsg"
-    dblog "Exception encountered: $errorMsg" "ERROR"
+    urllog "Exception encountered: $errorMsg" "ERROR"
 }
+
+
+
+

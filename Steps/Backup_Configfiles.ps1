@@ -36,7 +36,7 @@ Copy-Item -Path $piConfigurationPropertiesFile -Destination "$backupFolder\pi-co
           urllog "pi-configuration.properties Copied to $backupFolder"
 
 Copy-Item -Path $StandaloneConfBatFile -Destination "$backupFolder\standalone.conf.bat" -Force
-		  urllog "standalone.conf.bat Copied to $backupFolder`n"
+		  urllog "standalone.conf.bat Copied to $backupFolder"
 
 Write-Host "Backup completed in $backupFolder"
 urllog "Backup completed in $backupFolder"
