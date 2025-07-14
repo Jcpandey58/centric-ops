@@ -24,16 +24,17 @@ else{
 $EnableDbBackup = $Config["db.backup"] -eq "true"
 $EnableUrlExpose = $Config["url.expose"] -eq "true"
 
-$EnableRestartPDF = $Config["restart.PDF.service"] -eq "true"
-$EnableRestartImage = $Config["restart.Image.service"] -eq "true"
+
 # Service control toggles
 $EnableRestartWildFly = $Config["restart.WildFly.service"] -eq "true"
 $EnableStopWildFly = $Config["stop.WildFly.service"] -eq "true"
 $EnableStartWildFly = $Config["start.WildFly.service"] -eq "true"
 $EnableStopPDF = $Config["stop.PDF.service"] -eq "true"
 $EnableStartPDF = $Config["start.PDF.service"] -eq "true"
+$EnableRestartPDF = $Config["restart.PDF.service"] -eq "true"
 $EnableStopImage = $Config["stop.Image.service"] -eq "true"
 $EnableStartImage = $Config["start.Image.service"] -eq "true"
+$EnableRestartImage = $Config["restart.Image.service"] -eq "true"
 
 # === BACKUP FILE PATHS ===
 $StandarddbbackupDir = Join-Path $RootFolder "Db Backup" 
