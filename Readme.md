@@ -1,15 +1,80 @@
-🚀 URL Exposure Made Easy
-You no longer need to open PowerShell and type commands manually.
-Just double-click the https.bat file — and boom 💥, your URL is exposed to the internet instantly.
+Centric Ops Automation Script
 
-📋 Centralized Logging
-Previously, logs were split across multiple files like: batfilechanges.log, cmd.log, etc...
-Now, all logs are streamlined into a single file:
-Logs/ExposeUrl.log
-This simplifies error tracking and debugging.
+Overview
+This repository provides a configurable automation script designed to simplify and automate recurring operational activities typically handled by functional teams.
 
-💾 Database Backup Script Added
-A new PowerShell script has been added for backing up the C8 database:
-📄 Script Location: Steps/DB_backup.ps1
-📁 Backup Output: Stored in C:\Db Backup with a timestamped filename.
-Just run the script and your backup will be ready automatically.
+The script helps in reducing manual efforts for:
+1. Database backups and restores
+2. URL exposure
+3. Starting, stopping, and restarting key services:
+    WildFly Service
+    PDF Service
+    Image Service
+
+Features: 
+
+1. Database Backup
+   Automates backup of the configured database.
+
+2. Database Restore (Under Implementation)
+   Functionality to restore databases from backups is in progress.
+
+3. URL Exposure
+   Automates URL exposure along with required configuration updates and WildFly service restart.
+
+4. Service Operations
+   Provides controls to:
+   Start, Stop, Restart the following services:
+   WildFly
+   PDF Service
+   Image Service
+
+
+Configuration: 
+Operational actions are driven by the configuration.properties file:
+
+# Database
+db.server=localhost
+db.backup=false
+db.restore=false  # Under Implementation
+
+# URL Exposure
+url.expose=false
+
+# Service Controls
+restart.WildFly.service=false
+restart.PDF.service=false      
+restart.Image.service=false
+
+stop.WildFly.service=true
+stop.PDF.service=false
+stop.Image.service=true
+
+start.service=false
+start.PDF.service=true
+start.Image.service=true
+
+Set the respective options to true or false to enable or disable each operation.
+
+
+Logs
+All execution activities, statuses, and errors are logged for better traceability and debugging.
+Logs are stored in the logs folder within the project directory.
+
+A log rotation mechanism is implemented:
+Maximum of 4 log files retained
+Each file is capped at 100 KB
+Total log storage is limited to 400 KB
+Older logs are automatically rotated to maintain space efficiency.
+
+This ensures that logging is detailed without consuming excessive disk space.
+
+Usage
+Download the zipfile [text](https://github.com/Jcpandey58/centric-ops/archive/refs/heads/main.zip)
+
+Run the Runner.ps1 to execute the configured tasks.
+
+
+Contribution
+Contributions and suggestions for improvements are welcome.
+Raise an issue or share feedback if you'd like to propose additional functionalities.
