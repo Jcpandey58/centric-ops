@@ -1,6 +1,6 @@
 Centric Ops Automation Script
 
-Overview
+# Overview
 This repository provides a configurable automation script designed to simplify and automate recurring operational activities typically handled by functional teams.
 
 The script helps in reducing manual efforts for:
@@ -11,7 +11,7 @@ The script helps in reducing manual efforts for:
     PDF Service
     Image Service
 
-Features: 
+# Features: 
 
 1. Database Backup
    Automates backup of the configured database.
@@ -30,18 +30,18 @@ Features:
    Image Service
 
 
-Configuration: 
+# Configuration: 
 Operational actions are driven by the configuration.properties file:
 
-# Database
+Database
 db.server=localhost
 db.backup=false
 db.restore=false  # Under Implementation
 
-# URL Exposure
+URL Exposure
 url.expose=false
 
-# Service Controls
+Service Controls
 restart.WildFly.service=false
 restart.PDF.service=false      
 restart.Image.service=false
@@ -57,7 +57,7 @@ start.Image.service=true
 Set the respective options to true or false to enable or disable each operation.
 
 
-Logs
+# Logs
 All execution activities, statuses, and errors are logged for better traceability and debugging.
 Logs are stored in the logs folder within the project directory.
 
@@ -69,12 +69,11 @@ Older logs are automatically rotated to maintain space efficiency.
 
 This ensures that logging is detailed without consuming excessive disk space.
 
-Usage
+# Usage
 Download the zipfile [text](https://github.com/Jcpandey58/centric-ops/archive/refs/heads/main.zip)
 
 Run the Runner.ps1 to execute the configured tasks.
 
 
-Contribution
+# Contribution
 Contributions and suggestions for improvements are welcome.
-Raise an issue or share feedback if you'd like to propose additional functionalities.
