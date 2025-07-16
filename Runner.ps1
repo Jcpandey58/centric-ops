@@ -92,6 +92,14 @@ try{
 	if($EnableStartImage){
 		& ".\Common\ControlService.ps1" -ServiceName $Imageservice -Action "Start"
 	}
+
+	if($EnableRestartImage){
+		& ".\Common\ControlService.ps1" -ServiceName $Imageservice -Action "Restart"
+	}
+	if($EnableRestartPDF){
+		& ".\Common\ControlService.ps1" -ServiceName $Imageservice -Action "Restart"
+	}
+
 }
 catch{
 	urllog "$_" "Error"

@@ -18,8 +18,10 @@ switch ($Action.ToLower()) {
         if ($service.Status -ne "Running") {
             Start-Service -Name $ServiceName
             Write-Host "Service '$ServiceName' started."
+            urllog "Service '$ServiceName' started."
         } else {
             Write-Host "Service '$ServiceName' is already running."
+            urllog "Service '$ServiceName' started."
         }
     }
     "stop" {

@@ -70,7 +70,7 @@ Older logs are automatically rotated to maintain space efficiency.
 This ensures that logging is detailed without consuming excessive disk space.
 
 # Usage
-Download the zipfile [text](https://github.com/Jcpandey58/centric-ops/archive/refs/heads/main.zip)
+Download the [Zipfile](https://github.com/Jcpandey58/centric-ops/archive/refs/heads/main.zip)
 
 Run the Runner.ps1 to execute the configured tasks.
 
