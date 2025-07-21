@@ -71,7 +71,7 @@ This ensures that logging is detailed without consuming excessive disk space.
 
 # Usage
 Download the [Zipfile](https://github.com/Jcpandey58/centric-ops/archive/refs/heads/main.zip)
-
+Configure the tasks in the Propertes file
 Run the Runner.ps1 to execute the configured tasks.
 
 

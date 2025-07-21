@@ -5,15 +5,18 @@ $steps = @()
 try{
 	
 	if($EnableStopPDF){
-		& ".\Common\ControlService.ps1" -ServiceName $PDFservice -Action "Stop"
+		$Stoppdf = & ".\Common\ControlService.ps1" -ServiceName $PDFservice -Action "Stop"
+		$steps += $Stoppdf
 	}
 	
 	if($EnableStopImage){
-		& ".\Common\ControlService.ps1" -ServiceName $Imageservice -Action "Stop"
+		$Stopimage = & ".\Common\ControlService.ps1" -ServiceName $Imageservice -Action "Stop"
+		$steps += $Stopimage
 	}
 	
 	if($EnableStopWildFly){
-		& ".\Common\ControlService.ps1" -ServiceName $Wildflyservice -Action "Stop"
+		$stopwildfly = & ".\Common\ControlService.ps1" -ServiceName $Wildflyservice -Action "Stop"
+		$steps += $stopwildfly
 	}
 	
 	if ($EnableDbBackup) {
@@ -62,7 +65,30 @@ try{
 		$steps += "RestartWildfly.ps1"
 	}
 
-	if ($steps.Count -eq 0) {
+
+	if($EnableStartWildFly){
+		$startWildfly = & ".\Common\ControlService.ps1" -ServiceName $Wildflyservice -Action "Start"
+		$steps += $startWildfly
+	}
+	if($EnableStartPDF){
+		$startpdf = & ".\Common\ControlService.ps1" -ServiceName $PDFservice -Action "Start"
+		$steps += $startpdf
+	}
+	if($EnableStartImage){
+		$startimage = & ".\Common\ControlService.ps1" -ServiceName $Imageservice -Action "Start"
+		$steps += $startimage
+	}
+
+	if($EnableRestartImage){
+		$restartimage = & ".\Common\ControlService.ps1" -ServiceName $Imageservice -Action "Restart"
+		$steps += $restartimage
+	}
+	if($EnableRestartPDF){
+		$restartpdf = & ".\Common\ControlService.ps1" -ServiceName $Imageservice -Action "Restart"
+		$steps += $restartpdf
+	}
+
+	if($steps.Count -eq 0) {
 		urllog "No steps selected in configuration." "ERROR"												
 		Exit 1
 	}
@@ -82,24 +108,6 @@ try{
 	  
 		}
 	}
-	
-	if($EnableStartWildFly){
-		& ".\Common\ControlService.ps1" -ServiceName $Wildflyservice -Action "Start"
-	}
-	if($EnableStartPDF){
-		& ".\Common\ControlService.ps1" -ServiceName $PDFservice -Action "Start"
-	}
-	if($EnableStartImage){
-		& ".\Common\ControlService.ps1" -ServiceName $Imageservice -Action "Start"
-	}
-
-	if($EnableRestartImage){
-		& ".\Common\ControlService.ps1" -ServiceName $Imageservice -Action "Restart"
-	}
-	if($EnableRestartPDF){
-		& ".\Common\ControlService.ps1" -ServiceName $Imageservice -Action "Restart"
-	}
-
 }
 catch{
 	urllog "$_" "Error"
