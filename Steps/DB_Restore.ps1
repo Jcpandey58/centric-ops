@@ -1,6 +1,6 @@
 param(
     [string]$serverName = "localhost",
-    [string]$databaseName = "YourDatabase",
+    [string]$databaseName = "C8",
     [string]$backupFile = "C:\Backup\YourDatabase.bak",
     [string]$restorePath = "C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA"
 )

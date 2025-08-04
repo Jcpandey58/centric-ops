@@ -34,7 +34,8 @@ try{
 
 		# Determine step4 dynamically
 		$content = Get-Content $StandaloneConfBatFile
-		$line = $content | Select-String -Pattern '-Djboss.server.default.config=' -SimpleMatch						   
+		# $line = $content | Select-String -Pattern '-Djboss.server.default.config=' -SimpleMatch
+		$line = $content | Where-Object { ($_ -notmatch '^\s*rem') -and ($_ -match '-Djboss.server.default.config=') } | Select-Object -First 1				   
 
 		if ($line) {
 			$configFile = $line.Line.Split('=')[-1].Trim('"')
