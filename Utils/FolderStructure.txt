@@ -1,13 +1,16 @@
-HttpsUrlExpose\
-├── https.bat
-├── ExposeUrl.ps1
+centric-ops\
+├── Configuration.properties
+├── Runner.ps1
+├── Readme.md
 ├── Common\
 │    ├── PathSpecifier.ps1
 │    ├── logGenerator.ps1
+│    ├── ControlService.ps1
 ├── Utils\
 │    ├── C8.pfx
+│    ├── FolderStructure.txt
 ├── Logs\
-│	├── ExposeUrl.log 
+│	├── centric-ps.log
 ├── Steps\
 │	├── Backup_Configfiles.ps1
 │	├── Pi-configurationChanges.ps1
@@ -15,6 +18,7 @@ HttpsUrlExpose\
 │	├── pfxFileReplacement.ps1
 │	├── cmd.ps1
 │	├── pi-xml-changes.ps1
+│	├── pi-mssql-changes.ps1
 │	├── DB_backup.ps1
 │	├── pi-mssql-changes.ps1
 │	└── RestartWildfly.ps1

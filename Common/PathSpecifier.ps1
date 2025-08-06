@@ -50,6 +50,7 @@ $Imageservice = "CentricImageService"
 
 
 $EnableDbBackup = $Config["db.backup"] -eq "true"
+$EnableDbRestore =$Config["db.restore"] -eq "true"
 $EnableUrlExpose = $Config["url.expose"] -eq "true"
 # Service control toggles
 $EnableRestartWildFly = $Config["restart.WildFly.service"] -eq "true"
