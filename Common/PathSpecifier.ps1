@@ -39,6 +39,7 @@ if($Config["db.server"] -eq "localhost"){
 else{
 	$server = $Config["db.server"]
 }
+$database = $Config["db.name"]
 
 #Service name definition
 # display name pattern to search for Wildfly

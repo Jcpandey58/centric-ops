@@ -26,7 +26,7 @@ if ($isLocalServer) {
 	urllog "Backup will be saved to folder: $dbbackupDir" "DEBUG"
 }
 
-$database = Read-Host "Enter Database name"
+# $database = Read-Host "Enter Database name"
 $dbbackupfile = "$dbbackupDir\${database}_${Server}_$(Get-Date -Format "dd-MM-yyyy_HH-mm-ss").bak"
 
 if ([string]::IsNullOrWhiteSpace($database)) {
