@@ -15,7 +15,7 @@ if ($Wildflyservice) {
 
 # $Wildflyservice = Get-Service -Name "WFAS20SVC" -ErrorAction SilentlyContinue
 
-$ServiceName.Refresh()
+$Wildflyservice.refresh()
 $processesToKill = @("java", "node")
 urllog "Stopping $ServiceDisplayName"
 
