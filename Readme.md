@@ -31,7 +31,7 @@ The script helps in reducing manual efforts for:
 
 
 # Configuration: 
-Operational actions are driven by the configuration.properties file:
+Operational actions are driven by the config.properties file:
 
 Database
 db.server=localhost
