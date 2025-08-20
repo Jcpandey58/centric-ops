@@ -19,7 +19,7 @@ $binFolder = Join-Path $c8wildflyfolder "bin"
 $StandaloneConfBatFile=Join-Path $binFolder "standalone.conf.bat" 
 
 
-$ConfigFile = Join-Path $RootFolder "Configuration.properties"
+$ConfigFile = Join-Path $RootFolder "config.properties"
 $Config = @{}
 if (Test-Path $ConfigFile) {
     Get-Content $ConfigFile | ForEach-Object {
