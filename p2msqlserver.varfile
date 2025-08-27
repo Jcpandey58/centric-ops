@@ -1,0 +1,62 @@
+# --- Centric 8 Server Install4j response file (PostgreSQL) ---
+
+centricAdmin=Administrator
+centricPassword=centric8
+centricPasswordCheck=centric8
+
+# Path to your license file
+centricLicensePath=C\:\\C8_build_util\\installer\\C8.lic
+
+# Credential store
+credStorePassword=centric8
+credStorePasswordCheck=centric8
+claimCheckApiKey=SIMPLE;U430wgr80huf2f0w8uob2v4qwssg
+
+# Database settings (MSSQL)
+databaseName=C8
+databaseUser=csidba
+databasePassword=csidba
+databasePasswordCheck=csidba
+databasePath=C\:\\Program Files\\Centric Software\\C8\\Database
+mssqlAdminLogin=sa
+mssqlAdminPassword=csisa
+
+# Email setup (optional)
+mailAddress=qauser2@centricsoftware.com
+mailServer=localhost
+
+# Install options
+optionAppOrDB=appserver
+optionAuth=centric
+optionCreateDatabase=create
+optionDatabase=mssql
+optionInstallAppServer=yes
+optionLocalOrRemoteDB=local
+optionPersistentVolume=P2
+
+# Windows admin rights
+sys.adminRights$Boolean=true
+
+# Which installer components to include (all “true” means include everything)
+sys.component.115$Boolean=true
+sys.component.410$Boolean=true
+sys.component.546$Boolean=true
+sys.component.548$Boolean=true
+sys.component.549$Boolean=true
+sys.component.2779$Boolean=true
+sys.component.6667$Boolean=true
+
+# Where to install on disk
+sys.installationDir=C\:\\Program Files\\Centric Software\\C8
+sys.languageId=en
+
+# Program group shortcuts
+sys.programGroupAllUsers$Boolean=true
+sys.programGroupDisabled$Boolean=true
+sys.programGroupName=Centric 8
+sys.programGroupDisabled=true
+
+# Vault and WebAccess paths
+#vaultPath=F\:\\FILEVAULT
+vaultPath=C\:\\Program Files\\Centric Software\\C8\\FileVault
+webAccessPath=C\:\\Program Files\\Centric Software\\C8\\WebAccess
